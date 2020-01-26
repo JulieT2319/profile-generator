@@ -1,5 +1,6 @@
 var inquirer = require("inquirer");
 var fs = require('fs');
+var generateHTML = require('./generateHTML')
 
 inquirer.prompt([
 	{
@@ -14,7 +15,7 @@ inquirer.prompt([
 		choices: [
 			"red",
 			"blue",
-			"yellow",
+			"pink",
 			"green"
 		]
 	},
