@@ -25,8 +25,8 @@ inquirer.prompt([
 	console.log(data.color);
 	console.log(data.username);
 	let HTML = generateHTML.generateHTML(data);
-	writeFileAsync("index.html", HTML).then(function () {
-		console.log('The file has been saved!');
-	});
+	writeFileAsync("index.html", HTML)
 
+}).then(function () {
+	console.log('The HTML file has been saved!');
 });
