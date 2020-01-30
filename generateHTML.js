@@ -3,7 +3,7 @@ const colors = {
 		wrapperBackground: "#E6E1C3",
 		headerBackground: "#C1C72C",
 		headerColor: "black",
-		photoBorderColor: "#black"
+		photoBorderColor: "black"
 	},
 	blue: {
 		wrapperBackground: "#5F64D3",
@@ -170,66 +170,8 @@ function generateHTML(data) {
             zoom: .75; 
           } 
         }
-			</style>
-			</head>
+			</style>`
 
-<body class="wrapper">
-	<div class="container">
-		<div class="photo-header"><img src="${dummyProfile.avatar_url}"
-				alt="${dummyProfile.login} User Avatar">
-			<h1>${dummyProfile.login}</h1>
-			<div class="links-nav">
-				<div class="nav-links">
-					<p>♦
-						<a href="https://www.google.com/maps/search/?api=1&${dummyProfile.location}">Location</a>
-						♦
-						<a href="${dummyProfile.url}">Github</a>
-						♦
-						<a href="${dummyProfile.blog}">Blog</a>
-						♦ </p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="row">
-		<div class="col">
-			<div>
-				<h2>${dummyProfile.name}</h2>
-				<p>${dummyProfile.bio}</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col">
-			<div class="card">
-				<p>Followers: ${dummyProfile.followers}</p>
-			</div>
-		</div>
-		<div class="col">
-			<div class="card">
-				<p>Following: ${dummyProfile.following}</p >
-			</div >
-		</div >
-	</div >
-
-		<div class="row">
-			<div class="col">
-				<div class="card">
-					<p>Stars: ${dummyStarred.length}</p>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<p>Public Repos: ${dummyProfile.public_repos}</p>
-				</div>
-			</div>
-		</div>
-</body >
-
-</html > `
 }
 
 module.exports = {
