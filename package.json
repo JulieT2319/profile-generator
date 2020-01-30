@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JulieT2319/profile-generator#readme",
   "dependencies": {
+    "html-pdf": "^2.2.0",
     "inquirer": "^7.0.4",
     "puppeteer": "^2.0.0"
   }
