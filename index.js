@@ -55,7 +55,7 @@ inquirer.prompt([
 		"updated_at": "2020-01-22T22:20:49Z"
 	}
 
-	dummyStarred = [
+	let dummyStarred = [
 		{
 			"id": 229451685,
 			"node_id": "MDEwOlJlcG9zaXRvcnkyMjk0NTE2ODU=",
