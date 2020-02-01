@@ -10,13 +10,19 @@ function addProfile(profile) {
 				<h1>${profile.login}</h1>
 				<div class="links-nav">
 					<div class="nav-links">
-						<p>♦
-							<a href="https://www.google.com/maps/search/?api=1&${profile.location}">Location</a>
-							♦
+						<p>♦ ${
+							profile.location
+								? `<a href="https://www.google.com/maps/search/?api=1&${profile.location}">Location</a>
+							♦`
+								: ``
+						}
 							<a href="${profile.url}">Github</a>
-							♦
-							<a href="${profile.blog}">Blog</a>
-							♦ </p>
+							♦${
+								profile.blog
+									? `<a href="${profile.blog}">Blog</a>
+							♦`
+									: ``
+							} </p>
 					</div>
 				</div>
 			</div>
@@ -25,8 +31,8 @@ function addProfile(profile) {
 		<div class="row">
 			<div class="col">
 				<div class="container">
-					<h2>${profile.name}</h2>
-					<p>${profile.bio}</p>
+					<h2>${profile.name ? `${profile.name}` : ``}</h2>
+					<p>${profile.bio ? `${profile.bio}` : ``}</p>
 				</div>
 			</div>
 		</div>
@@ -34,12 +40,12 @@ function addProfile(profile) {
 		<div class="row">
 			<div class="col">
 				<div class="card">
-					<p>Followers: ${profile.followers}</p>
+					<p>Followers: ${profile.followers ? `${profile.followers}` : `0`}</p>
 				</div>
 			</div>
 			<div class="col">
 				<div class="card">
-					<p>Following: ${profile.following}</p >
+					<p>Following: ${profile.following ? `${profile.following}` : `0`}</p >
 				</div >
 			</div >
 		</div >
@@ -47,10 +53,10 @@ function addProfile(profile) {
 			<div class="row">
 				<div class="col">
 					<div class="card">
-						<p>Public Repos: ${profile.public_repos}</p>
+						<p>Public Repos: ${profile.public_repos ? `${profile.public_repos}` : `0`}</p>
 					</div>
-				</div>`
-};
+				</div>`;
+}
 function addStars(starred) {
 	return `<div class="col">
 					<div class="card">
@@ -63,10 +69,10 @@ function addStars(starred) {
 	
 	</body >
 	
-	</html >`
-};
+	</html >`;
+}
 
 module.exports = {
 	addProfile: addProfile,
 	addStars: addStars
-}
+};
