@@ -3,6 +3,7 @@ var fs = require("fs");
 var generateHTML = require("./generateHTML");
 var addHTML = require("./addprofiletoHTML");
 var util = require("util");
+const axios = require("axios");
 const writeFileAsync = util.promisify(fs.writeFile);
 const appendFileAsync = util.promisify(fs.appendFile);
 let queryProfile = "https://api.github.com/users/";
@@ -309,7 +310,7 @@ var dummyStarred = [
     default_branch: "master"
   }
 ];
-
+let HTML;
 inquirer
   .prompt([
     {
@@ -325,19 +326,31 @@ inquirer
     }
   ])
   .then(function(data) {
-    let HTML = generateHTML.generateHTML(data);
+    HTML = generateHTML.generateHTML(data);
+    queryProfile = "https://api.github.com/users/" + data.username;
+    queryStars = "https://api.github.com/users/" + data.username + "/starred";
+    console.log(queryProfile);
+    console.log(queryStars);
     writeFileAsync("index.html", HTML);
   })
   .then(function() {
     console.log("The HTML file has been created!");
   })
-  .then(function() {})
   .then(function() {
-    let addProfile = addHTML.addProfile(dummyProfile);
-    let addStars = addHTML.addStars(dummyStarred);
-    let fullinfo = addProfile + addStars;
-    appendFileAsync("index.html", fullinfo);
+    axios.get(queryProfile).then(function(res) {
+      const profile = res.data;
+      HTML = HTML + addHTML.addProfile(profile);
+      console.log(HTML);
+    });
   })
-  .then(function() {
-    console.log("The additional info has been added!");
-  });
+  .catch();
+// })
+// .then(function() {
+//   let addProfile = addHTML.addProfile(dummyProfile);
+//   let addStars = addHTML.addStars(dummyStarred);
+//   let fullinfo = addProfile + addStars;
+//   appendFileAsync("index.html", fullinfo);
+// })
+// .then(function() {
+//   console.log("The additional info has been added!");
+// });
