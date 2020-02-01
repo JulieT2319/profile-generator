@@ -29,8 +29,6 @@ inquirer
 		HTML = generateHTML.generateHTML(data);
 		queryProfile = "https://api.github.com/users/" + data.username;
 		queryStars = "https://api.github.com/users/" + data.username + "/starred";
-		console.log(queryProfile);
-		console.log(queryStars);
 	})
 	.then(function() {
 		axios.get(queryProfile).then(function(res) {
@@ -45,26 +43,34 @@ inquirer
 				const stars = res.data;
 				finalHTML = HTML + addHTML.addStars(stars);
 			})
-			.then(function() {
-				writeFileAsync("index.html", finalHTML).then(function() {
-					console.log("html file created.");
+			.then(async function() {
+				const browser = await puppeteer.launch();
+				const page = await browser.newPage();
+				await page.setContent(finalHTML);
+				await page.emulateMedia("screen");
+				await page.pdf({
+					path: "resume.pdf",
+					format: "A4",
+					printBackground: true
 				});
+				await browser.close();
+				process.exit();
 			});
 	})
-	.then(async function() {
-		const browser = await puppeteer.launch();
-		const page = await browser.newPage();
-		await page.setContent(finalHTML);
-		await page.emulateMedia("screen");
-		await page.pdf({
-			path: "resume.pdf",
-			format: "A4",
-			printBackground: true
-		});
-		console.log("pdf created");
-		await browser.close();
-		process.exit();
-	})
+	// .then(async function() {
+	// 	const browser = await puppeteer.launch();
+	// 	const page = await browser.newPage();
+	// 	await page.setContent(finalHTML);
+	// 	await page.emulateMedia("screen");
+	// 	await page.pdf({
+	// 		path: "resume.pdf",
+	// 		format: "A4",
+	// 		printBackground: true
+	// 	});
+	// 	console.log("pdf created");
+	// 	await browser.close();
+	// 	process.exit();
+	// })
 	.catch();
 // })
 // .then(function() {
