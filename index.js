@@ -331,18 +331,24 @@ inquirer
     queryStars = "https://api.github.com/users/" + data.username + "/starred";
     console.log(queryProfile);
     console.log(queryStars);
-    writeFileAsync("index.html", HTML);
-  })
-  .then(function() {
-    console.log("The HTML file has been created!");
   })
   .then(function() {
     axios.get(queryProfile).then(function(res) {
       const profile = res.data;
       HTML = HTML + addHTML.addProfile(profile);
-      console.log(HTML);
     });
   })
+  .then(function() {
+    axios.get(queryStars).then(function(res) {
+      const stars = res.data;
+      HTML = HTML + addHTML.addStars(stars);
+      console.log(HTML);
+    });
+  }).then(function(){
+    writeFileAsync("index.html", HTML).then(function(){
+    return "html file created.";
+    }
+  )
   .catch();
 // })
 // .then(function() {
