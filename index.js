@@ -51,7 +51,7 @@ inquirer
 				await page.pdf({
 					path: "resume.pdf",
 					format: "A4",
-					printBackground: true
+					printBackground: false
 				});
 				await browser.close();
 				process.exit();
