@@ -3,6 +3,7 @@ var fs = require("fs");
 var generateHTML = require("./generateHTML");
 var addHTML = require("./addprofiletoHTML");
 var util = require("util");
+var puppeteer = require("puppeteer");
 const axios = require("axios");
 const writeFileAsync = util.promisify(fs.writeFile);
 const appendFileAsync = util.promisify(fs.appendFile);
@@ -11,47 +12,65 @@ let queryStars = "https://api.github.com/users/";
 let HTML;
 let finalHTML;
 inquirer
-  .prompt([
-    {
-      type: "input",
-      name: "username",
-      message: "What is your github username?"
-    },
-    {
-      type: "list",
-      message: "What is your favorite color?",
-      name: "color",
-      choices: ["red", "blue", "pink", "green"]
-    }
-  ])
-  .then(function(data) {
-    HTML = generateHTML.generateHTML(data);
-    queryProfile = "https://api.github.com/users/" + data.username;
-    queryStars = "https://api.github.com/users/" + data.username + "/starred";
-    console.log(queryProfile);
-    console.log(queryStars);
-  })
-  .then(function() {
-    axios.get(queryProfile).then(function(res) {
-      const profile = res.data;
-      HTML = HTML + addHTML.addProfile(profile);
-    });
-  })
-  .then(function() {
-    axios
-      .get(queryStars)
-      .then(function(res) {
-        const stars = res.data;
-        finalHTML = HTML + addHTML.addStars(stars);
-        console.log(finalHTML);
-      })
-      .then(function() {
-        writeFileAsync("index.html", finalHTML).then(function() {
-          console.log("html file created.");
-        });
-      });
-  })
-  .catch();
+	.prompt([
+		{
+			type: "input",
+			name: "username",
+			message: "What is your github username?"
+		},
+		{
+			type: "list",
+			message: "What is your favorite color?",
+			name: "color",
+			choices: ["red", "blue", "pink", "green", "purple"]
+		}
+	])
+	.then(function(data) {
+		HTML = generateHTML.generateHTML(data);
+		queryProfile = "https://api.github.com/users/" + data.username;
+		queryStars = "https://api.github.com/users/" + data.username + "/starred";
+		console.log(queryProfile);
+		console.log(queryStars);
+	})
+	.then(function() {
+		axios.get(queryProfile).then(function(res) {
+			const profile = res.data;
+			HTML = HTML + addHTML.addProfile(profile);
+		});
+	})
+	.then(function() {
+		axios
+			.get(queryStars)
+			.then(function(res) {
+				const stars = res.data;
+				finalHTML = HTML + addHTML.addStars(stars);
+			})
+			.then(function() {
+				writeFileAsync("index.html", finalHTML).then(function() {
+					console.log("html file created.");
+					async function printPDF() {
+            try {
+						const browser = await puppeteer.launch();
+						const page = await browser.newPage();
+
+						await page.setContent(finalHTML);
+						await page.emulateMedia("screen");
+						await page.pdf({
+							path: "resume.pdf",
+							format: "A4",
+							printBackground: true
+						});
+						console.log("pdf created");
+						await browser.close();
+						process.exit();
+          } catch(err){
+          console.log(err);
+        }
+      }
+				};
+			);
+	})
+	.catch();
 // })
 // .then(function() {
 //   let addProfile = addHTML.addProfile(dummyProfile);

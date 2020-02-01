@@ -22,13 +22,19 @@ const colors = {
 		headerBackground: "#870603",
 		headerColor: "white",
 		photoBorderColor: "white"
+	},
+	purple: {
+		wrapperBackground: "#D8BFD8",
+		headerBackground: "#BA55D3",
+		headerColor: "#E6E6FA",
+		photoBorderColor: "#DDA0DD"
 	}
 };
 
 function generateHTML(data) {
 	return `<!DOCTYPE html>
 <html lang="en">
-   <head>
+  <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -170,8 +176,7 @@ function generateHTML(data) {
             zoom: .75; 
           } 
         }
-			</style>`
-
+			</style>`;
 }
 
 module.exports = {
