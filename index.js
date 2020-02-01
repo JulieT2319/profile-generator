@@ -57,28 +57,4 @@ inquirer
 				process.exit();
 			});
 	})
-	// .then(async function() {
-	// 	const browser = await puppeteer.launch();
-	// 	const page = await browser.newPage();
-	// 	await page.setContent(finalHTML);
-	// 	await page.emulateMedia("screen");
-	// 	await page.pdf({
-	// 		path: "resume.pdf",
-	// 		format: "A4",
-	// 		printBackground: true
-	// 	});
-	// 	console.log("pdf created");
-	// 	await browser.close();
-	// 	process.exit();
-	// })
 	.catch();
-// })
-// .then(function() {
-//   let addProfile = addHTML.addProfile(dummyProfile);
-//   let addStars = addHTML.addStars(dummyStarred);
-//   let fullinfo = addProfile + addStars;
-//   appendFileAsync("index.html", fullinfo);
-// })
-// .then(function() {
-//   console.log("The additional info has been added!");
-// });
