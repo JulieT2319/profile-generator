@@ -50,10 +50,10 @@ inquirer
 				await page.emulateMedia("screen");
 				await page.pdf({
 					path: "resume.pdf",
-					format: "A4",
-					printBackground: false
+					format: "A4"
 				});
 				await browser.close();
+				console.log("pdf created");
 				process.exit();
 			});
 	})
