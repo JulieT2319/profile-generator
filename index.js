@@ -311,6 +311,7 @@ var dummyStarred = [
   }
 ];
 let HTML;
+let finalHTML;
 inquirer
   .prompt([
     {
@@ -339,16 +340,19 @@ inquirer
     });
   })
   .then(function() {
-    axios.get(queryStars).then(function(res) {
-      const stars = res.data;
-      HTML = HTML + addHTML.addStars(stars);
-      console.log(HTML);
-    });
-  }).then(function(){
-    writeFileAsync("index.html", HTML).then(function(){
-    return "html file created.";
-    }
-  )
+    axios
+      .get(queryStars)
+      .then(function(res) {
+        const stars = res.data;
+        finalHTML = HTML + addHTML.addStars(stars);
+        console.log(finalHTML);
+      })
+      .then(function() {
+        writeFileAsync("index.html", finalHTML).then(function() {
+          console.log("html file created.");
+        });
+      });
+  })
   .catch();
 // })
 // .then(function() {
