@@ -8,7 +8,8 @@ This is a local node application that will take user input to find a GitHub user
 
 ## Where it is
 
-The application files can be downloaded to your local machine using 'git clone <https://github.com/JulieT2319/profile-generator.git>'
+The application files can be downloaded to your local machine using:
+git clone <https://github.com/JulieT2319/profile-generator.git>
 
 ## How to use it
 
